@@ -11,7 +11,7 @@ Note: i use basic to read data from others databases.
 Without DSN field
 ```
 public $second_db = [
-		'DSN'			 => '',
+		'DSN'	=> '',
 		'hostname' => '192.168.6.2',
 		'port'     => '', // default: '3050',
 		'username' => 'MYUSSER',
@@ -35,7 +35,7 @@ public $second_db = [
 Using DSN variable
 ```
  public $third_db = [
-		'DSN'			 => 'firebird:192.168.3.2:D:/Database/Employees.FDB',
+		'DSN'	=> 'firebird:192.168.3.2:D:/Database/Employees.FDB',
 		'hostname' => '',
 		'port'     => '',
 		'username' => 'MYUSSER',

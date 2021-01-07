@@ -8,7 +8,7 @@ Add Firebird database to yours database `app\Config\Database`
 
 Note: i use basic to read data from others databases.
 
-Without DSN field
+##Without DSN field
 ```
 public $second_db = [
 	'DSN'	=> '',
@@ -32,7 +32,7 @@ public $second_db = [
 	'failover' => [],
 	];
 ```  
-Using DSN variable
+##Using DSN variable
 ```
  public $third_db = [
 	'DSN'	=> 'firebird:192.168.3.2:D:/Database/Employees.FDB',
@@ -57,13 +57,13 @@ Using DSN variable
 ];
 ```
 
-Now you can use in Models, but remember connect before call Model as 
+##Now you can use in Models, but remember connect before call Model as 
 in controller
 ```
 $db2 = \Config\Database::connect('second_db');
 ```
 
-in model
+##in model
 
 ```
 <?php namespace App\Models;
@@ -84,5 +84,73 @@ class FbarticulosModel extends Model
     :::
  }
 ```
+
+##Now you ca use
+
+```public function articulos(){
+      $db2 = \Config\Database::connect('second_db');
+        if (!$db2) {
+
+        } else {
+          $FbitemsModel = new FbitemsModel();
+          $data['items'] = $FbitemsModel->findAll();
+        }
+        return view('items_view', $data);
+    }
+```
+
+##Get all tables in database
+
+```public function tables() {
+      $db2 = \Config\Database::connect('second_db');
+      if (!$db2) {
+
+      } else {
+
+        $tables = $db2->listTables();
+
+        sort( $tables );
+        foreach ($tables as $table)
+        {
+            echo $table.'<br />';
+        }
+      }
+    }
+```
+
+##Get columns of an table
+
+```
+public function table_columns($table = null) {
+      $db2 = \Config\Database::connect('second_db');
+      if (!$db2) {
+	//
+      } else {
+        $table_name = !empty($table) ? $table : 'STORES';
+        $columns = $db2->_fieldData($table_name);
+        echo '<table>';
+        echo "<tr><td colspan=4>{$table_name}</td></tr>";
+        echo '<tr><td>NAME</td><td>TYPE</td><td>MAX-LENGTH</td><td>DEFAULT</td></tr>';
+        $sql_insert = '';
+        foreach ($columns as $col)
+        {
+          echo '<tr>';
+          echo '<td>'.$col->name.'</td>';
+          echo '<td>'.$col->type.'</td>';
+          echo '<td>'.$col->max_length.'</td>';
+          echo '<td>'.$col->default.'</td>';
+          echo '</tr>';
+          $sql_insert .= "'".trim($col->name)."' => '', \n";
+        }
+        echo '</table>';
+        echo '<hr/>';
+	echo 'Use to create php array column to value';
+        echo "<pre>{$sql_insert}</pre>";
+        echo '<hr/>';
+        echo "end";
+      }
+    }
+```
+
 
 

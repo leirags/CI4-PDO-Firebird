@@ -9,6 +9,7 @@ Add Firebird database to yours database app\Config\Database
 Note: i use basic to read data from others databases.
 
 Without DSN field
+```
 public $second_db = [
 		'DSN'			 => '',
 		'hostname' => '192.168.6.2',
@@ -30,8 +31,9 @@ public $second_db = [
 		'strictOn' => FALSE,
 		'failover' => [],
 	];
-  
+```  
 Using DSN variable
+```
  public $third_db = [
 		'DSN'			 => 'firebird:192.168.3.2:D:/Database/Employees.FDB',
 		'hostname' => '',
@@ -53,16 +55,17 @@ Using DSN variable
 		'strictOn' => FALSE,
 		'failover' => [],
 	];
-
+```
 
 Now you can use in Models, but remember connect before call Model as 
 in controller
-
+```
 $db2 = \Config\Database::connect('second_db');
-
+```
 
 in model
 
+```
 <?php namespace App\Models;
 
 use CodeIgniter\Model;
@@ -80,6 +83,6 @@ class FbarticulosModel extends Model
     
     :::
  }
-
+```
 
 

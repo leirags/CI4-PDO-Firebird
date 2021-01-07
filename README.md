@@ -152,5 +152,35 @@ public function table_columns($table = null) {
     }
 ```
 
+##Find index in tables
+
+```
+public function all_indexes() {
+      $db2 = \Config\Database::connect('second_db');
+      if (!$db2) {
+
+      } else {
+        $table_name = !empty($table) ? $table : 'STORES';
+        $indexes = $db2->_indexData($table_name);
+        echo '<table>';
+        echo '<tr><td>RELATION_NAME</td><td>INDEX_NAME</td><td>INDEX_ID</td><td>FOREIGN_KEY</td></tr>';
+        foreach ($indexes as $idx)
+        {
+          echo '<tr>';
+          echo '<td>'.$idx->RELATION_NAME.'</td>';
+          echo '<td>'.$idx->INDEX_NAME.'</td>';
+          echo '<td>'.$idx->INDEX_ID.'</td>';
+          echo '<td>'.$idx->FOREIGN_KEY.'</td>';
+          echo '</tr>';
+        }
+        echo '</table>';
+      }
+    }
+```
+
+
+I hope this can help somebody.
+
+I need use a this on a webpage, using MySQL on frontend, and Firebird in the backend, basicaly to read the data of items.
 
 

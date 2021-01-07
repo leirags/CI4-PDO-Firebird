@@ -4,7 +4,7 @@ Use Firebird with CodeIgniter v4 and PDO basic operations
 #Instructions
 Copy the folder Firebird to \Vendor\Codeigniter4\Framework\System\Database\
 
-Add Firebird database to yours database app\Config\Database
+Add Firebird database to yours database `app\Config\Database`
 
 Note: i use basic to read data from others databases.
 

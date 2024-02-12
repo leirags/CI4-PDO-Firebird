@@ -239,12 +239,16 @@ class Forge extends \CodeIgniter\Database\Forge
 	 * @param  string $table (ignored)
 	 * @return string
 	 */
-	protected function _processIndexes(string $table): string
+	protected function _processIndexes(string $table, bool $asQuery = false): array
 	{
-		$sql = '';
+		$sqls = [''];
 
-		for ($i = 0, $c = count($this->keys); $i < $c; $i ++)
-		{
+		for ($i = 0, $c = count($this->keys); $i < $c; $i ++) {
+			$index = $i;
+            if ($asQuery === false) {
+                $index = 0;
+            }			
+
 			if (is_array($this->keys[$i]))
 			{
 				for ($i2 = 0, $c2 = count($this->keys[$i]); $i2 < $c2; $i2 ++)
@@ -266,13 +270,13 @@ class Forge extends \CodeIgniter\Database\Forge
 
 			$unique = in_array($i, $this->uniqueKeys) ? 'UNIQUE ' : '';
 
-			$sql .= ",\n\t{$unique}KEY " . $this->db->escapeIdentifiers(implode('_', $this->keys[$i]))
+			$sqls[$index] .= ",\n\t{$unique}KEY " . $this->db->escapeIdentifiers(implode('_', $this->keys[$i]))
 				. ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i])) . ')';
 		}
 
 		$this->keys = [];
 
-		return $sql;
+		return $sqls;
 	}
 
 	//--------------------------------------------------------------------

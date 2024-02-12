@@ -40,12 +40,11 @@
 namespace CodeIgniter\Database\Firebird;
 
 use CodeIgniter\Database\BasePreparedQuery;
-use CodeIgniter\Database\PreparedQueryInterface;
 
 /**
  * Prepared query for Firebird
  */
-class PreparedQuery extends BasePreparedQuery implements PreparedQueryInterface
+class PreparedQuery extends BasePreparedQuery 
 {
 
 	/**
@@ -132,4 +131,13 @@ class PreparedQuery extends BasePreparedQuery implements PreparedQueryInterface
 	}
 
 	//--------------------------------------------------------------------
+
+
+    /**
+     * Deallocate prepared statements.
+     */
+    protected function _close(): bool
+    {
+        return $this->statement->close();
+    }	
 }

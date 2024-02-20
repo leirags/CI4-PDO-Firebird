@@ -316,7 +316,7 @@ class Connection extends BaseConnection implements ConnectionInterface
 	 *
 	 * @return string
 	 */
-	protected function _listTables(bool $prefixLimit = false): string
+	protected function _listTables(bool $prefixLimit = false, ?string $tableName = null): string
 	{
 		// log_message('error', '_listTables');
 		$sql = 'SELECT "RDB$RELATION_NAME" AS "TABLE" FROM "RDB$RELATIONS"
@@ -326,7 +326,7 @@ class Connection extends BaseConnection implements ConnectionInterface
 
 		if ($prefixLimit !== false && $this->DBPrefix !== '')
 		{
-			return $sql.' AND "RDB$RELATION_NAME" LIKE \''.$this->escape_like_str($this->DBPrefix)."%' "
+			return $sql.' AND "RDB$RELATION_NAME" LIKE \''.$this->escapeLikeStringDirect($this->DBPrefix)."%' "
 				.sprintf($this->_like_escape_str, $this->_like_escape_chr);
 		}
 

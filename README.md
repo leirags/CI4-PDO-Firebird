@@ -8,6 +8,13 @@ Add Firebird database to yours database `app\Config\Database`
 
 Note: i use basic to read data from others databases.
 
+##Using .env and DSN
+```
+database.default.DSN = firebird:dbname=192.168.6.2:alias_or_path_of_database;charset=UTF8;dialect=3
+database.default.username = MYUSER
+database.default.password = 123ABCD
+database.default.DBDriver = Firebird
+```
 ##Without DSN field
 ```
 public $second_db = [
